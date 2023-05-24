@@ -1,3 +1,5 @@
+import BarraAjustes from "../componentes/BarraAjustes";
+
 export default function Home() {
-  return <h2>Home</h2>;
+  return <BarraAjustes />;
 }

@@ -108,12 +108,108 @@ meter {
 /* My CSS Styles **************** */
 /* ****************************** */
 
+/* Variables */
+
+:root {
+  --fondo-base: #222;
+  --fondo-contraste: #4e4e4e;
+  --letras: #ffffff;
+  --border-radius: 5px;
+}
+
+/* Fonts */
+
+.list-title {
+  text-align: center;
+  font-size: 0.8rem;
+  padding-block: 0.5rem;
+}
+
+/* Base styles */
+
 body {
-  background-color: black;
-  color: whitesmoke;
+  background-color: #333;
+  color: var(--letras);
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
 }
 .main-container {
   max-width: 412px;
   margin: 0 auto;
-  background-color: brown;
+  background-color: var(--fondo-base);
+  position: relative;
+  height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* List and Reminders form input componentes */
+.list-form-component {
+  display: grid;
+  grid-template-columns: 40px auto 40px;
+  align-items: center;
+  margin-inline: 1rem;
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+}
+.delete-btn,
+.cancel-delete-btn {
+  width: 25px;
+  height: 25px;
+  border: 5px solid var(--fondo-base);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.cancel-delete-btn {
+  background-color: red;
+}
+.list-form--num-items {
+  justify-self: end;
+  font-size: 1.3rem;
+}
+
+/* Barra superior de editar listas y ajustes mas sus dos fly in componentes*/
+
+.barra-ajustes-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+  /* position: sticky;
+  top: 0;
+  left: 0; */
+}
+.lists-container,
+.ajustes-container {
+  position: absolute;
+  inset: 0;
+}
+.list-container--barra,
+.ajustes-container--barra {
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+.ajustes-container--barra {
+  text-align: right;
+}
+
+.mis-listas,
+.ajustes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--fondo-base);
+  padding-top: 0.5rem;
+}
+.ajustes-lista {
+  gap: 2rem;
+  padding: 4rem 2rem;
+  align-items: end;
 }
