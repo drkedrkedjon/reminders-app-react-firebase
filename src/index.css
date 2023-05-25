@@ -210,7 +210,8 @@ button {
 }
 
 .mis-listas,
-.ajustes-lista {
+.ajustes-lista,
+.new-reminder-lista {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -239,7 +240,34 @@ button {
   left: 0;
   width: 100%;
 }
-
+.new-reminder-lista {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+#title,
+#note,
+#date,
+#time,
+#select-list,
+#flaged,
+#image-upload {
+  /* accent-color: red; */
+  background-color: var(--fondo-contraste);
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  font-family: inherit;
+}
+#title,
+#note,
+#date,
+#time,
+#select-list,
+#flaged,
+#image-upload ::placeholder {
+  color: aqua;
+}
 /* ****************************** */
 /* Home Component */
 /* ****************************** */
