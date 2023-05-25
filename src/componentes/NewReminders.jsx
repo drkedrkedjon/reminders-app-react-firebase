@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export default function NewReminder({ handleVisibility }) {
+export default function NewReminders({ handleVisibility }) {
   return (
     <div className="ajustes-container">
       <div className="ajustes-container--barra">

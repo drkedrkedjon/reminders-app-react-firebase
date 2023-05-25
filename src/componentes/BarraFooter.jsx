@@ -1,5 +1,5 @@
-import NewReminder from "./newReminder";
 import { useState } from "react";
+import NewReminders from "./NewReminders";
 
 export default function BarraFooter() {
   const [newReminderVisibility, setNewReminderVisibility] = useState(false);
@@ -14,7 +14,7 @@ export default function BarraFooter() {
         <button onClick={handleVisibility}>+ New Reminder</button>
       </footer>
       {newReminderVisibility && (
-        <NewReminder handleVisibility={handleVisibility} />
+        <NewReminders handleVisibility={handleVisibility} />
       )}
     </div>
   );
