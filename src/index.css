@@ -139,7 +139,7 @@ body {
   margin: 0 auto;
   background-color: var(--fondo-base);
   position: relative;
-  height: 100vh;
+  height: 100dvh;
 }
 
 button {
