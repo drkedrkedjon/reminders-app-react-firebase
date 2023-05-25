@@ -125,7 +125,9 @@ meter {
   padding-block: 0.5rem;
 }
 
+/* ****************************** */
 /* Base styles */
+/* ****************************** */
 
 body {
   background-color: #333;
@@ -139,14 +141,17 @@ body {
   margin: 0 auto;
   background-color: var(--fondo-base);
   position: relative;
-  height: 100dvh;
+  min-height: 100dvh;
 }
 
 button {
   cursor: pointer;
 }
 
+/* ****************************** */
 /* List and Reminders form input componentes */
+/* ****************************** */
+
 .list-form-component {
   display: grid;
   grid-template-columns: 40px auto 40px;
@@ -172,16 +177,19 @@ button {
   font-size: 1.3rem;
 }
 
-/* Barra superior de editar listas y ajustes mas sus dos fly in componentes*/
+/* ****************************** */
+/* Barra HEADER de editar listas y ajustes mas sus dos fly in componentes*/
+/* ****************************** */
 
 .barra-ajustes-container {
   display: flex;
   justify-content: space-between;
   background-color: var(--fondo-contraste);
   padding: 1rem;
-  /* position: sticky;
+  height: 55px;
+  position: sticky;
   top: 0;
-  left: 0; */
+  left: 0;
 }
 .lists-container,
 .ajustes-container {
@@ -192,6 +200,7 @@ button {
 .ajustes-container--barra {
   background-color: var(--fondo-contraste);
   padding: 1rem;
+  height: 55px;
   position: sticky;
   top: 0;
   left: 0;
@@ -207,9 +216,30 @@ button {
   gap: 0.5rem;
   background-color: var(--fondo-base);
   padding-top: 0.5rem;
+  min-height: calc(100dvh - 55px);
 }
 .ajustes-lista {
   gap: 2rem;
   padding: 4rem 2rem;
   align-items: end;
 }
+
+/* ****************************** */
+/* Barra FOOTER de editar listas y ajustes mas sus dos fly in componentes*/
+/* ****************************** */
+
+.barra-footer-container {
+  display: flex;
+  justify-content: end;
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+  min-height: 50px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* ****************************** */
+/* Home Component */
+/* ****************************** */

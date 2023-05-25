@@ -2,7 +2,7 @@ import EditLists from "./EditLists";
 import Ajustes from "./Ajustes";
 import { useState } from "react";
 
-export default function BarraAjustes() {
+export default function BarraHeader() {
   const [editListVisibility, setEditListVisibility] = useState(false);
   const [ajustesVisibility, setAjustesVisibility] = useState(false);
 
@@ -12,13 +12,13 @@ export default function BarraAjustes() {
   }
 
   return (
-    <>
-      <div className="barra-ajustes-container">
+    <div>
+      <header className="barra-ajustes-container">
         <button onClick={() => handleVisibility("listas")}>Edit Lists</button>
         <button onClick={() => handleVisibility("ajustes")}>Settings</button>
-      </div>
+      </header>
       {editListVisibility && <EditLists handleVisibility={handleVisibility} />}
       {ajustesVisibility && <Ajustes handleVisibility={handleVisibility} />}
-    </>
+    </div>
   );
 }
