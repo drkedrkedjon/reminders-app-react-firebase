@@ -1,18 +1,40 @@
+import TableroCard from "../componentes/TableroCard";
 export default function Home() {
   return (
     <main className="home-container">
       <div className="tablero">
-        <div className="tablero-card">
-          <div className="tablero-card--firstrow">
-            <img
-              className="tablero-card--img"
-              src="/assets/reloj.png"
-              alt="Irelevant Icon"
-            />
-            <p className="tablero-card--num">5</p>
-          </div>
-          <p className="tablero-card--date">Hoy: 24/12/2023</p>
-        </div>
+        <TableroCard
+          src="/assets/reloj.png"
+          alt="Clock"
+          num="3"
+          text="Sasa"
+          date={true}
+          color="#FF0000"
+        />
+        <TableroCard
+          src="/assets/bandera.png"
+          alt="Flag"
+          num="7"
+          text="Flaged"
+          date={false}
+          color=""
+        />
+        <TableroCard
+          src="/assets/easy.png"
+          alt="Woman working on laptop"
+          num="14"
+          text="Next 3 days"
+          date={false}
+          color="#FF8A00"
+        />
+        <TableroCard
+          src="/assets/relax.png"
+          alt="Person on sunbed"
+          num="28"
+          text="Next 7 days"
+          date={false}
+          color="#05FF00"
+        />
       </div>
       <section className="home-list-container"></section>
     </main>
