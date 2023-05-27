@@ -271,6 +271,7 @@ button {
   margin-bottom: 1rem;
   font: inherit;
   margin: 0;
+  height: 4rem;
 }
 #title,
 #note {
