@@ -1,3 +1,4 @@
+import HomeListCard from "../componentes/HomeListCard";
 import TableroCard from "../componentes/TableroCard";
 export default function Home() {
   return (
@@ -36,7 +37,21 @@ export default function Home() {
           color="#05FF00"
         />
       </div>
-      <section className="home-list-container"></section>
+
+      <section className="home-list-container">
+        <h2 className="list-title">My Lists</h2>
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+        <HomeListCard />
+      </section>
     </main>
   );
 }

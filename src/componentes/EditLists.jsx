@@ -8,7 +8,7 @@ export default function EditLists({ handleVisibility }) {
         <button onClick={() => handleVisibility("listas")}>Return</button>
       </div>
       <div className="mis-listas">
-        <h2 className="list-title ">My Lists</h2>
+        <h2 className="list-title">My Lists</h2>
 
         <ListsImput />
         <ListsImput />
