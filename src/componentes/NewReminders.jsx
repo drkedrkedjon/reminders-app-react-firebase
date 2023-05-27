@@ -12,11 +12,11 @@ export default function NewReminders({ handleVisibility }) {
         <textarea id="note" placeholder="text area" cols="3" />
         <div className="form-element-container">
           <label htmlFor="date">Date</label>
-          <input id="date" type="date" />
+          <input id="date" type="date" placeholder="Set date" />
         </div>
         <div className="form-element-container">
           <label htmlFor="time">Time</label>
-          <input id="time" type="time" />
+          <input id="time" type="time" placeholder="Set time" />
         </div>
         <div className="form-element-container">
           <label htmlFor="select-list">Select list</label>

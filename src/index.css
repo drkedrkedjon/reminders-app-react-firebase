@@ -271,11 +271,14 @@ button {
   margin-bottom: 1rem;
   font: inherit;
   margin: 0;
-  width: 5rem;
 }
 #title,
 #note {
   padding: 1rem;
+}
+#date,
+#time {
+  width: 10rem;
 }
 
 #title,
