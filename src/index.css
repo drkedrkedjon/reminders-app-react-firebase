@@ -115,6 +115,9 @@ meter {
   --fondo-contraste: #4e4e4e;
   --color: #ffffff;
   --color-acentado: #00ffff;
+  --color-red: #ff0000;
+  --color-orange: #ff8a00;
+  --color-green: #05ff00;
   --border-radius: 5px;
 }
 
@@ -137,12 +140,18 @@ body {
     helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
     sans-serif;
 }
+
+/* ****************************** */
+/* Home Layout */
+/* ****************************** */
+
 .main-container {
-  max-width: 412px;
-  margin: 0 auto;
   background-color: var(--fondo-base);
   position: relative;
+  max-width: 412px;
   min-height: 100dvh;
+  margin: 0 auto;
+  overflow: scroll;
 }
 
 button {
@@ -150,7 +159,37 @@ button {
 }
 
 /* ****************************** */
-/* List and Reminders form input componentes */
+/* Barra HEADER Componente        */
+/* ****************************** */
+
+.header-container {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  height: 3rem;
+  width: 100%;
+  max-width: 412px;
+  background-color: var(--fondo-contraste);
+}
+
+/* ****************************** */
+/* Edit Lists Component */
+/* ****************************** */
+
+.edit-lists-container {
+  margin-block: 3rem 3.5rem;
+}
+.edit-lists-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ****************************** */
+/* ListsImput Componente, esta en Edit Lists Component */
 /* ****************************** */
 
 .list-form-component {
@@ -179,94 +218,51 @@ button {
 }
 
 /* ****************************** */
-/* Barra HEADER de editar listas y ajustes mas sus dos fly in componentes*/
+/* Settings Component */
 /* ****************************** */
 
-.barra-ajustes-container {
+.ajustes-container {
   display: flex;
-  justify-content: space-between;
-  background-color: var(--fondo-contraste);
-  padding: 1rem;
-  height: 55px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
+  flex-direction: column;
+  align-items: end;
+  gap: 2rem;
+  padding-inline: 1rem;
+  margin-block: 6rem 3rem;
 }
-.lists-container {
-  padding-top: 55px;
-  /* Aqui esta el problema */
-  position: fixed;
-  inset: 0;
-}
-.list-container--barra,
-.ajustes-container--barra {
-  background-color: var(--fondo-contraste);
-  padding: 1rem;
-  width: 100%;
-  height: 55px;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-.ajustes-container--barra {
-  text-align: right;
+.logout-btn {
+  color: var(--color-red);
 }
 
-.mis-listas,
-.ajustes-lista,
+/* ****************************** */
+/* Barra FOOTER Componente*/
+/* ****************************** */
+
+.footer-container {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 1rem;
+  height: 3rem;
+  width: 100%;
+  max-width: 412px;
+  background-color: var(--fondo-contraste);
+  color: var(--color-acentado);
+}
+
+/* ****************************** */
+/* New Reminder Componente */
+/* ****************************** */
+
+.new-reminder-container {
+  margin-block: 4rem;
+  padding-inline: 1rem;
+}
 .new-reminder-lista {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background-color: var(--fondo-base);
-  padding-top: 0.5rem;
-  min-height: calc(100dvh - 55px);
-}
-.ajustes-lista {
-  gap: 2rem;
-  padding: calc(4rem + 55px) 2rem;
-  align-items: end;
-}
-
-/* ****************************** */
-/* Barra FOOTER de anadir recordatorio + una fly in componentes*/
-/* ****************************** */
-
-.new-reminder-container {
-  padding-top: 55px;
-  /* Aqui esta el problema */
-  position: absolute;
-  inset: 0;
-}
-.new-reminder--barra {
-  background-color: var(--fondo-contraste);
-  text-align: right;
-  padding: 1rem;
-  width: 100%;
-  height: 55px;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.barra-footer-container {
-  display: flex;
-  justify-content: end;
-  background-color: var(--fondo-contraste);
-  padding: 1rem;
-  min-height: 50px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  /* z-index: 1000; */
-}
-.new-reminder-lista {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  gap: 0.7rem;
 }
 
 .form-element-container {
@@ -347,10 +343,18 @@ button {
 /* Home Component */
 /* ****************************** */
 
-/* tablero */
 .home-container {
-  padding: 65px 0.5rem;
+  padding: 0.5rem;
+  margin-block: 3rem;
 }
+.home-list-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+/* Tablero */
 .tablero {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -380,13 +384,9 @@ button {
   font-size: 1.1rem;
 }
 
-/* Listas */
-.home-list-container {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  gap: 0.5rem;
-}
+/* ****************************** */
+/* HomeListCard Component */
+/* ****************************** */
 .home-list-component {
   display: flex;
   align-items: center;

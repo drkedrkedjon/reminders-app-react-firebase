@@ -1,7 +1,7 @@
-export default function ListsImput() {
+export default function EditListInput() {
   return (
     <div className="list-form-component">
-      <button className="delete-btn"></button>
+      <button className="cancel-delete-btn"></button>
       <input type="text" value="Supermercado" />
       <p className="list-form--num-items">25</p>
     </div>

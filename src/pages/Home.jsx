@@ -10,7 +10,7 @@ export default function Home() {
           num="3"
           text="Sasa"
           date={true}
-          color="#FF0000"
+          color="var(--color-red)"
         />
         <TableroCard
           src="/assets/bandera.png"
@@ -18,7 +18,7 @@ export default function Home() {
           num="7"
           text="Flaged"
           date={false}
-          color=""
+          color="var(--color)"
         />
         <TableroCard
           src="/assets/easy.png"
@@ -26,7 +26,7 @@ export default function Home() {
           num="14"
           text="Next 3 days"
           date={false}
-          color="#FF8A00"
+          color="var(--color-orange)"
         />
         <TableroCard
           src="/assets/relax.png"
@@ -34,7 +34,7 @@ export default function Home() {
           num="28"
           text="Next 7 days"
           date={false}
-          color="#05FF00"
+          color="var(--color-green)"
         />
       </div>
 
