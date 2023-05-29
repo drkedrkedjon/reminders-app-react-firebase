@@ -1,6 +1,25 @@
 import HomeListCard from "../componentes/HomeListCard";
 import TableroCard from "../componentes/TableroCard";
+import { onValue } from "firebase/database";
+import { listasEnDB } from "../scripts/firebase";
+import { useEffect, useState } from "react";
+
 export default function Home() {
+  // console.log(window.location.pathname);
+
+  const [lists, setLists] = useState([]);
+
+  useEffect(() => {
+    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
+      setLists(Object.entries(snapshot.val()));
+    });
+    return cancelOnValue;
+  }, []);
+
+  const mapeo = lists.map((lista) => {
+    return <HomeListCard key={lista[0]} lista={lista} />;
+  });
+
   return (
     <main className="home-container">
       <div className="tablero">
@@ -40,17 +59,7 @@ export default function Home() {
 
       <section className="home-list-container">
         <h2 className="list-title">My Lists</h2>
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
-        <HomeListCard />
+        {mapeo}
       </section>
     </main>
   );

@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
-export default function NewReminders({ handleVisibility }) {
+export default function NewReminders() {
+  console.log(window.location.pathname);
+
   return (
     <div className="new-reminder-container">
       <form className="new-reminder-lista">

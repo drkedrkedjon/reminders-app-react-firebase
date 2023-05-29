@@ -2,6 +2,8 @@
 import EditListInput from "../componentes/EditListInput";
 
 export default function EditLists() {
+  console.log(window.location.pathname);
+
   return (
     <div className="edit-lists-container">
       <h2 className="list-title">My Lists</h2>
