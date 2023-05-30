@@ -24,10 +24,7 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
 
   return (
     <div className="list-form-component">
-      <button
-        onClick={() => deleteList(id)}
-        className="cancel-delete-btn"
-      ></button>
+      <button onClick={() => deleteList(id)} className="delete-btn"></button>
       <input type="text" onChange={handleListName} value={listName} />
       <p className="list-form--num-items">{numItems}</p>
     </div>

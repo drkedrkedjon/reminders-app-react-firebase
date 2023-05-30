@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import EditListInput from "../componentes/EditListInput";
-import { onValue, ref, update } from "firebase/database";
+import { onValue, ref, remove, update } from "firebase/database";
 import { db, listasEnDB } from "../scripts/firebase";
 import { useEffect, useState } from "react";
 
@@ -28,7 +28,7 @@ export default function EditLists() {
   }
 
   function deleteList(id) {
-    console.log(id);
+    remove(ref(db, `/listas/${id}`));
   }
 
   const mapeo = lists.map((lista) => {
