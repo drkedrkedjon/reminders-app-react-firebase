@@ -12,7 +12,7 @@ export default function BarraFooter() {
 
   return (
     <footer className="footer-container">
-      <Link onClick={handleNewList} to="/">
+      <Link onClick={handleNewList} to="/edit-lists">
         New List
       </Link>
       <Link to="/new-reminder">+ New Reminder</Link>

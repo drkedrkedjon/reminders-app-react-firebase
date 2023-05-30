@@ -11,7 +11,11 @@ export default function Home() {
 
   useEffect(() => {
     const cancelOnValue = onValue(listasEnDB, function (snapshot) {
-      setLists(Object.entries(snapshot.val()));
+      if (snapshot.val()) {
+        setLists(Object.entries(snapshot.val()));
+      } else {
+        setLists([]);
+      }
     });
     return cancelOnValue;
   }, []);
