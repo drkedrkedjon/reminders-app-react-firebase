@@ -400,3 +400,27 @@ button {
   margin-left: auto;
   font-size: 1.5rem;
 }
+/* ****************************** */
+/* LIST DETAILS Component */
+/* ****************************** */
+.list-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-block: 3rem;
+  padding-inline: 1rem;
+}
+/* ****************************** */
+/* REMINDER CARD Component */
+/* ****************************** */
+.reminder-card-container {
+  display: grid;
+  grid-template-columns: 40px auto 40px;
+  align-items: center;
+  background-color: var(--fondo-contraste);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+}
+.reminder-card-img {
+  justify-self: end;
+}

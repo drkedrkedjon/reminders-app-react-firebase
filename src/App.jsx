@@ -4,16 +4,18 @@ import Home from "./pages/Home";
 import EditLists from "./pages/EditLists";
 import Ajustes from "./pages/Ajustes";
 import NewReminders from "./pages/NewReminders";
+import ListDetails from "./pages/ListDetails";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<HomeLayout />}>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomeLayout />}>
+          <Route index element={<Home />} />
           <Route path="edit-lists" element={<EditLists />} />
           <Route path="settings" element={<Ajustes />} />
           <Route path="new-reminder" element={<NewReminders />} />
+          <Route path="list/:id" element={<ListDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

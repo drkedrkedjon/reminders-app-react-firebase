@@ -34,12 +34,14 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
     return () => clearTimeout(cancelTimeout);
   }, [isDeletingList]);
 
+  //  Para poner punto rojo
   const btnRedCancel = isDeletingList ? "cancel-" : "";
 
   return (
     <div className="list-form-component">
       <button
         onClick={() => setIsDeletingList(!isDeletingList)}
+        // Aqui uso punto rojo
         className={`${btnRedCancel}delete-btn`}
       ></button>
       <input type="text" onChange={handleListName} value={listName} />
