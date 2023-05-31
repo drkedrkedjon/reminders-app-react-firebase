@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import ReminderCard from "../componentes/ReminderCard";
 
 export default function ListDetails() {
   const params = useParams();
@@ -8,11 +9,13 @@ export default function ListDetails() {
     <section className="list-details-container">
       <h2 className="list-title">Nombre de la lista</h2>
 
-      <div className="reminder-card-container">
-        <button className="cancel-delete-btn"></button>
-        <input className="reminder-card-input" type="text" />
-        <img className="reminder-card-img" src="/assets/bandera.png" alt="" />
-      </div>
+      <ReminderCard />
+      <ReminderCard />
+      <ReminderCard />
+      <ReminderCard />
+      <ReminderCard />
+      <ReminderCard />
+      <ReminderCard />
     </section>
   );
 }
