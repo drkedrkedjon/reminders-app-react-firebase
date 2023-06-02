@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-/* eslint-disable react/prop-types */
 export default function NewReminders() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [form, setForm] = useState({
@@ -12,13 +12,15 @@ export default function NewReminders() {
     time: "",
     selectList: "",
     flaged: false,
-    imageRef: "",
+    imageURL: "",
   });
-
+  console.log(form.imageURL);
+  // Guardar imagen seleccionada en selectedImage state
   function handleSelectedImage(e) {
     setSelectedImage(e.target.files[0]);
   }
 
+  // Manejar formulario y su state via onChange event
   function handleForm(e) {
     const { name, value, checked, type } = e.target;
 
@@ -28,17 +30,21 @@ export default function NewReminders() {
     }));
   }
 
+  // Al seleccionar imagen, subir la misma en firebase storage
+  // Luego obtener su URL y a final meter en el formulario de recordatorio
   useEffect(() => {
     if (!selectedImage) return;
 
     const fileRef = ref(imagesRef, selectedImage?.name);
-    const fileURL = fileRef.fullPath;
 
-    uploadBytes(fileRef, selectedImage).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
+    uploadBytes(fileRef, selectedImage).then(() => {
+      getDownloadURL(fileRef).then((url) => {
+        setForm((oldData) => ({
+          ...oldData,
+          imageURL: url,
+        }));
+      });
     });
-
-    console.log(fileURL);
   }, [selectedImage]);
 
   return (
@@ -65,7 +71,7 @@ export default function NewReminders() {
           <label htmlFor="select-list">Select list</label>
           <select
             id="select-list"
-            name="select-list"
+            name="selectList"
             value={form.selectList}
             onChange={handleForm}
           >
