@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
+import { listasEnDB } from "../scripts/firebase";
+import { onValue, update, push, child } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function NewReminders() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [lists, setLists] = useState([]);
   const [form, setForm] = useState({
     title: "",
     note: "",
@@ -14,7 +17,7 @@ export default function NewReminders() {
     flaged: false,
     imageURL: "",
   });
-  console.log(form.imageURL);
+
   // Guardar imagen seleccionada en selectedImage state
   function handleSelectedImage(e) {
     setSelectedImage(e.target.files[0]);
@@ -28,6 +31,16 @@ export default function NewReminders() {
       ...oldData,
       [name]: type === "checkbox" ? checked : value,
     }));
+  }
+
+  function handleSaveReminder() {
+    // Get a key for a new Post.
+    // const newRefLista = ref(listasEnDB, form.selectList);
+    const newPostKey = push(child(listasEnDB, form.selectList + "items")).key;
+    const updates = {};
+    updates[listasEnDB + form.selectList + "items" + newPostKey] = form;
+    update(listasEnDB, updates);
+    // console.log(newPostKey);
   }
 
   // Al seleccionar imagen, subir la misma en firebase storage
@@ -47,17 +60,42 @@ export default function NewReminders() {
     });
   }, [selectedImage]);
 
+  // Obtener los nombres de las listas para mapear para el elemnto select de formulario.
+  useEffect(() => {
+    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
+      if (snapshot.val()) {
+        setLists(Object.entries(snapshot.val()));
+      } else {
+        setLists([]);
+      }
+    });
+
+    return cancelOnValue;
+  }, []);
+
+  // Obtener listado de nombres de las listas para options in select element
+  const mapeoSelectOption = lists.map((list) => (
+    <option key={list[0]} value={list[0]}>
+      {list[1].name}
+    </option>
+  ));
+
   return (
     <div className="new-reminder-container">
-      <form className="new-reminder-lista">
+      <div className="new-reminder-lista">
         <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          value={form.title}
-          onChange={handleForm}
-        />
+        <div className="title-btn-container">
+          <input
+            id="title"
+            type="text"
+            name="title"
+            value={form.title}
+            onChange={handleForm}
+          />
+          <button onClick={handleSaveReminder} className="btn-guardar">
+            Save
+          </button>
+        </div>
 
         <label htmlFor="note">Note</label>
         <textarea
@@ -75,10 +113,7 @@ export default function NewReminders() {
             value={form.selectList}
             onChange={handleForm}
           >
-            <option value="Supermercado">Supermercado</option>
-            <option value="Sarajevo">Sarajevo</option>
-            <option value="Esquiar">Esquiar</option>
-            <option value="Bicicletas">Bicicletas</option>
+            {mapeoSelectOption}
           </select>
         </div>
 
@@ -122,7 +157,7 @@ export default function NewReminders() {
           type="file"
           onChange={handleSelectedImage}
         />
-      </form>
+      </div>
     </div>
   );
 }

@@ -274,6 +274,22 @@ button {
   border-radius: var(--border-radius);
 }
 
+.title-btn-container {
+  display: flex;
+}
+.btn-guardar {
+  padding-inline: 2rem;
+  background-color: var(--color-orange);
+  color: var(--fondo-base);
+  font-weight: 700;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  transition: color ease-in-out 120ms;
+}
+.btn-guardar:hover {
+  color: var(--color);
+}
+
 #title,
 #note,
 #date,
@@ -288,9 +304,14 @@ button {
   font: inherit;
   margin: 0;
 }
+#title {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
 #title,
 #note {
   padding: 1rem;
+  width: 100%;
 }
 #note {
   height: 5.5rem;
