@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { listasEnDB } from "../scripts/firebase";
-import { onValue, update, push, child } from "firebase/database";
+import { listasEnDB, db } from "../scripts/firebase";
+import { onValue, ref as refDB, update, push, child } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function NewReminders() {
@@ -34,12 +34,13 @@ export default function NewReminders() {
   }
 
   function handleSaveReminder() {
+    update(refDB(db, `listas/${form.selectList}`), { "items/aiusdfas": form });
     // Get a key for a new Post.
     // const newRefLista = ref(listasEnDB, form.selectList);
     const newPostKey = push(child(listasEnDB, form.selectList + "items")).key;
-    const updates = {};
-    updates[listasEnDB + form.selectList + "items" + newPostKey] = form;
-    update(listasEnDB, updates);
+    // const updates = {};
+    // updates[listasEnDB + form.selectList + "items" + newPostKey] = form;
+    // update(listasEnDB, updates);
     // console.log(newPostKey);
   }
 
