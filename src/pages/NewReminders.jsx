@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
 import { listsEnDB, remindersEnDB } from "../scripts/firebase";
-import { onValue, ref as refDB, update, push } from "firebase/database";
+import { onValue, push } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 
 export default function NewReminders() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -18,6 +19,7 @@ export default function NewReminders() {
     flaged: false,
     imageURL: "",
   });
+  const navigate = useNavigate();
 
   // Guardar imagen seleccionada en selectedImage state
   function handleSelectedImage(e) {
@@ -35,7 +37,8 @@ export default function NewReminders() {
   }
 
   function handleSaveReminder() {
-    push(remindersEnDB, form);
+    push(remindersEnDB, form).then(navigate(`/list/${form.listID}`));
+    // .catch(console.log("sasa"));
 
     // update(refDB(db, `listas/${form.selectList}`), { "items/aiusdfas": form });
     // Get a key for a new Post.
