@@ -1,24 +1,10 @@
 import HomeListCard from "../componentes/HomeListCard";
 import TableroCard from "../componentes/TableroCard";
-import { onValue } from "firebase/database";
-import { listsEnDB } from "../scripts/firebase";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { MyListsContext } from "../scripts/DataContexts";
 
 export default function Home() {
-  // console.log(window.location.pathname);
-
-  const [lists, setLists] = useState([]);
-
-  useEffect(() => {
-    const cancelOnValue = onValue(listsEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setLists(Object.entries(snapshot.val()));
-      } else {
-        setLists([]);
-      }
-    });
-    return cancelOnValue;
-  }, []);
+  const lists = useContext(MyListsContext);
 
   const mapeo = lists.map((lista) => {
     return <HomeListCard key={lista[0]} lista={lista} />;

@@ -5,7 +5,7 @@ export default function ReminderCard({ data, id }) {
   return (
     <div className="reminder-card-container">
       <button className="cancel-delete-btn"></button>
-      <input className="reminder-card-input" type="text" value={data.title} />
+      <input className="reminder-card-input" type="text" />
       {data.flaged && (
         <img
           className="reminder-card-flaged"

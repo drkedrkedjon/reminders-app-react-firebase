@@ -1,25 +1,12 @@
 /* eslint-disable react/prop-types */
 import EditListInput from "../componentes/EditListInput";
-import { onValue, ref, remove, update } from "firebase/database";
-import { db, listsEnDB } from "../scripts/firebase";
-import { useEffect, useState } from "react";
+import { ref, remove, update } from "firebase/database";
+import { db } from "../scripts/firebase";
+import { useContext } from "react";
+import { MyListsContext } from "../scripts/DataContexts";
 
 export default function EditLists() {
-  // console.log(window.location.pathname);
-
-  const [lists, setLists] = useState([]);
-
-  useEffect(() => {
-    const cancelOnValue = onValue(listsEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setLists(Object.entries(snapshot.val()));
-      } else {
-        setLists([]);
-      }
-    });
-
-    return cancelOnValue;
-  }, []);
+  const lists = useContext(MyListsContext);
 
   function handleNewName(id, newName) {
     const updates = {};
