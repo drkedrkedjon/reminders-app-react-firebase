@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import EditListInput from "../componentes/EditListInput";
 import { onValue, ref, remove, update } from "firebase/database";
-import { db, listasEnDB } from "../scripts/firebase";
+import { db, listsEnDB } from "../scripts/firebase";
 import { useEffect, useState } from "react";
 
 export default function EditLists() {
@@ -10,7 +10,7 @@ export default function EditLists() {
   const [lists, setLists] = useState([]);
 
   useEffect(() => {
-    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
+    const cancelOnValue = onValue(listsEnDB, function (snapshot) {
       if (snapshot.val()) {
         setLists(Object.entries(snapshot.val()));
       } else {

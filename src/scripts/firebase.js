@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref } from "firebase/database"
+import { getDatabase, ref as refDB } from "firebase/database"
 import { getStorage } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,7 +22,10 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database
 export const db = getDatabase(app)
-export const listasEnDB = ref(db, "listas")
+// Referencias en database
+export const usersEnDB = refDB(db, "users")
+export const listsEnDB = refDB(db, "listas")
+export const remindersEnDB = refDB(db, "reminders")
 
 // Inicializar Storage
 export const storage = getStorage(app);

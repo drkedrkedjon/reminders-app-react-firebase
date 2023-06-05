@@ -1,7 +1,7 @@
 import HomeListCard from "../componentes/HomeListCard";
 import TableroCard from "../componentes/TableroCard";
 import { onValue } from "firebase/database";
-import { listasEnDB } from "../scripts/firebase";
+import { listsEnDB } from "../scripts/firebase";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
   const [lists, setLists] = useState([]);
 
   useEffect(() => {
-    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
+    const cancelOnValue = onValue(listsEnDB, function (snapshot) {
       if (snapshot.val()) {
         setLists(Object.entries(snapshot.val()));
       } else {

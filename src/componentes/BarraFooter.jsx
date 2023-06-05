@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { listasEnDB } from "../scripts/firebase";
+import { listsEnDB } from "../scripts/firebase";
 import { push } from "firebase/database";
 
 export default function BarraFooter() {
   function handleNewList() {
-    push(listasEnDB, {
+    push(listsEnDB, {
       name: "New List",
-      items: {},
+      userID: "",
     });
   }
 

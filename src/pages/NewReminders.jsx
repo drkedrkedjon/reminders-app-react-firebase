@@ -1,19 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { listasEnDB, db } from "../scripts/firebase";
-import { onValue, ref as refDB, update, push, child } from "firebase/database";
+import { listsEnDB, remindersEnDB } from "../scripts/firebase";
+import { onValue, ref as refDB, update, push } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function NewReminders() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [lists, setLists] = useState([]);
   const [form, setForm] = useState({
+    userID: "",
+    listID: "",
     title: "",
     note: "",
     date: "",
     time: "",
-    selectList: "",
     flaged: false,
     imageURL: "",
   });
@@ -34,13 +35,15 @@ export default function NewReminders() {
   }
 
   function handleSaveReminder() {
-    update(refDB(db, `listas/${form.selectList}`), { "items/aiusdfas": form });
+    push(remindersEnDB, form);
+
+    // update(refDB(db, `listas/${form.selectList}`), { "items/aiusdfas": form });
     // Get a key for a new Post.
-    // const newRefLista = ref(listasEnDB, form.selectList);
-    const newPostKey = push(child(listasEnDB, form.selectList + "items")).key;
+    // const newRefLista = ref(listsEnDB, form.selectList);
+    // const newPostKey = push(child(listsEnDB, form.selectList + "items")).key;
     // const updates = {};
-    // updates[listasEnDB + form.selectList + "items" + newPostKey] = form;
-    // update(listasEnDB, updates);
+    // updates[listsEnDB + form.selectList + "items" + newPostKey] = form;
+    // update(listsEnDB, updates);
     // console.log(newPostKey);
   }
 
@@ -63,7 +66,7 @@ export default function NewReminders() {
 
   // Obtener los nombres de las listas para mapear para el elemnto select de formulario.
   useEffect(() => {
-    const cancelOnValue = onValue(listasEnDB, function (snapshot) {
+    const cancelOnValue = onValue(listsEnDB, function (snapshot) {
       if (snapshot.val()) {
         setLists(Object.entries(snapshot.val()));
       } else {
@@ -110,8 +113,8 @@ export default function NewReminders() {
           <label htmlFor="select-list">Select list</label>
           <select
             id="select-list"
-            name="selectList"
-            value={form.selectList}
+            name="listID"
+            value={form.listID}
             onChange={handleForm}
           >
             {mapeoSelectOption}
