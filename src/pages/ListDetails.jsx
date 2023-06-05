@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import ReminderCard from "../componentes/ReminderCard";
 import { useState, useEffect } from "react";
 import { onValue } from "firebase/database";
@@ -31,6 +31,7 @@ export default function ListDetails() {
     <section className="list-details-container">
       <h2 className="list-title">Nombre de la lista</h2>
       {mapeo}
+      <Outlet />
     </section>
   );
 }

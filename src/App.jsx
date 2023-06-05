@@ -5,6 +5,7 @@ import EditLists from "./pages/EditLists";
 import Ajustes from "./pages/Ajustes";
 import NewReminders from "./pages/NewReminders";
 import ListDetails from "./pages/ListDetails";
+import ReminderDetails from "./pages/ReminderDetails";
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
           <Route path="edit-lists" element={<EditLists />} />
           <Route path="settings" element={<Ajustes />} />
           <Route path="new-reminder" element={<NewReminders />} />
-          <Route path="list/:id" element={<ListDetails />} />
+          <Route path="list/:id" element={<ListDetails />}>
+            <Route path="reminder/:id" element={<ReminderDetails />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
