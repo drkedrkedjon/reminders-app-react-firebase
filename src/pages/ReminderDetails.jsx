@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
 import { listsEnDB, remindersEnDB } from "../scripts/firebase";
-import { onValue, push, update, ref as refDB } from "firebase/database";
+import { onValue, update } from "firebase/database";
 import { ref as refST, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
 import { MyRemindersContext } from "../scripts/DataContexts";
@@ -36,7 +36,7 @@ export default function ReminderDetails() {
       [name]: type === "checkbox" ? checked : value,
     }));
   }
-  // Guardar recordatorio en DB
+  // Actualisar recordatorio en DB
   function handleUpdateReminder() {
     const updates = {};
     updates[thisReminderID] = form;
@@ -151,6 +151,7 @@ export default function ReminderDetails() {
         </div>
 
         <label htmlFor="image-upload">Image</label>
+        {form.imageURL !== "" && <img src={form.imageURL} alt="" />}
         <input
           id="image-upload"
           name="imageRef"
