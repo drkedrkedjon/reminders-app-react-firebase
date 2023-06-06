@@ -19,6 +19,7 @@ export default function NewReminders() {
     flaged: false,
     imageURL: "",
   });
+  // Para redireccionar en router
   const navigate = useNavigate();
 
   // Guardar imagen seleccionada en selectedImage state
@@ -35,19 +36,9 @@ export default function NewReminders() {
       [name]: type === "checkbox" ? checked : value,
     }));
   }
-
+  // Guardar recordatorio en DB
   function handleSaveReminder() {
     push(remindersEnDB, form).then(navigate(`/list/${form.listID}`));
-    // .catch(console.log("sasa"));
-
-    // update(refDB(db, `listas/${form.selectList}`), { "items/aiusdfas": form });
-    // Get a key for a new Post.
-    // const newRefLista = ref(listsEnDB, form.selectList);
-    // const newPostKey = push(child(listsEnDB, form.selectList + "items")).key;
-    // const updates = {};
-    // updates[listsEnDB + form.selectList + "items" + newPostKey] = form;
-    // update(listsEnDB, updates);
-    // console.log(newPostKey);
   }
 
   // Al seleccionar imagen, subir la misma en firebase storage

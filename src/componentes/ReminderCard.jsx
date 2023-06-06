@@ -13,7 +13,7 @@ export default function ReminderCard({ data, id }) {
           alt=""
         />
       )}
-      <Link to={`reminder/${id}`} className="reminder-card-arrow">
+      <Link to={`/reminder/${id}`} className="reminder-card-arrow">
         <img src="/assets/flecha-derecha.png" alt="" />
       </Link>
     </div>

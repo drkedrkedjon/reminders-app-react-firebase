@@ -16,9 +16,8 @@ function App() {
           <Route path="edit-lists" element={<EditLists />} />
           <Route path="settings" element={<Ajustes />} />
           <Route path="new-reminder" element={<NewReminders />} />
-          <Route path="list/:id" element={<ListDetails />}>
-            <Route path="reminder/:id" element={<ReminderDetails />} />
-          </Route>
+          <Route path="list/:id" element={<ListDetails />} />
+          <Route path="reminder/:id" element={<ReminderDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>
