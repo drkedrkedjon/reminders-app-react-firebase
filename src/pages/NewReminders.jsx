@@ -1,9 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { imagesRef } from "../scripts/storage";
 import { remindersEnDB } from "../scripts/firebase";
 import { push } from "firebase/database";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { MyListsContext } from "../scripts/DataContexts";
 
@@ -19,7 +24,15 @@ export default function NewReminders() {
     time: "",
     flaged: false,
     imageURL: "",
+    imageName: "",
   });
+
+  // Activar o desactivar el botton basado en si lista esta selecionada
+  const isListSelected = useRef(false);
+  form.listID
+    ? (isListSelected.current = true)
+    : (isListSelected.current = false);
+
   // Para redireccionar en router
   const navigate = useNavigate();
 
@@ -54,10 +67,22 @@ export default function NewReminders() {
         setForm((oldData) => ({
           ...oldData,
           imageURL: url,
+          imageName: selectedImage?.name,
         }));
       });
     });
   }, [selectedImage]);
+
+  function handleDeleteImage() {
+    const fileRef = ref(imagesRef, form.imageName);
+    deleteObject(fileRef).then(
+      setForm((oldData) => ({
+        ...oldData,
+        imageURL: "",
+        imageName: "",
+      }))
+    );
+  }
 
   // Obtener listado de nombres de las listas para options in select element
   const mapeoSelectOption = listContext.map((list) => (
@@ -80,8 +105,12 @@ export default function NewReminders() {
             value={form.title}
             onChange={handleForm}
           />
-          <button onClick={handleSaveReminder} className="btn-guardar">
-            Save
+          <button
+            disabled={!isListSelected.current}
+            onClick={handleSaveReminder}
+            className="btn-guardar"
+          >
+            {!isListSelected.current ? "Is List Selected ?" : "Save"}
           </button>
         </div>
 
@@ -141,13 +170,19 @@ export default function NewReminders() {
 
         <label htmlFor="image-upload">Image</label>
         {form.imageURL !== "" && <img src={form.imageURL} alt="" />}
-        <input
-          id="image-upload"
-          name="imageRef"
-          type="file"
-          accept="image/*"
-          onChange={handleSelectedImage}
-        />
+        {!form.imageURL ? (
+          <input
+            id="image-upload"
+            name="imageRef"
+            type="file"
+            accept="image/*"
+            onChange={handleSelectedImage}
+          />
+        ) : (
+          <button onClick={handleDeleteImage} className="delete-img">
+            Delete Image
+          </button>
+        )}
       </div>
     </div>
   );
