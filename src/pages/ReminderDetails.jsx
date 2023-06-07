@@ -3,7 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
 import { remindersEnDB } from "../scripts/firebase";
 import { update } from "firebase/database";
-import { ref as refST, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref as refST,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
 import { MyListsContext, MyRemindersContext } from "../scripts/DataContexts";
 
@@ -59,6 +64,8 @@ export default function ReminderDetails() {
       });
     });
   }, [selectedImage]);
+
+  function handleDeleteImage() {}
 
   // Obtener listado de nombres de las listas para options in select element
   const mapeoSelectOption = listContext.map((list) => (
@@ -139,13 +146,19 @@ export default function ReminderDetails() {
 
         <label htmlFor="image-upload">Image</label>
         {form.imageURL !== "" && <img src={form.imageURL} alt="" />}
-        <input
-          id="image-upload"
-          name="imageRef"
-          type="file"
-          accept="image/*"
-          onChange={handleSelectedImage}
-        />
+        {!form.imageURL ? (
+          <input
+            id="image-upload"
+            name="imageRef"
+            type="file"
+            accept="image/*"
+            onChange={handleSelectedImage}
+          />
+        ) : (
+          <button onClick={handleDeleteImage} className="delete-img">
+            Delete Image
+          </button>
+        )}
       </div>
     </div>
   );

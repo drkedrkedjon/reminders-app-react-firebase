@@ -73,6 +73,7 @@ export default function NewReminders() {
     });
   }, [selectedImage]);
 
+  //  Para borrar imgane en storage
   function handleDeleteImage() {
     const fileRef = ref(imagesRef, form.imageName);
     deleteObject(fileRef).then(
@@ -91,7 +92,7 @@ export default function NewReminders() {
     </option>
   ));
 
-  console.log(form);
+  // console.log(form);
 
   return (
     <div className="new-reminder-container">
