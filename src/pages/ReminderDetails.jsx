@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { listsEnDB, remindersEnDB } from "../scripts/firebase";
-import { onValue, update } from "firebase/database";
+import { remindersEnDB } from "../scripts/firebase";
+import { update } from "firebase/database";
 import { ref as refST, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
-import { MyRemindersContext } from "../scripts/DataContexts";
+import { MyListsContext, MyRemindersContext } from "../scripts/DataContexts";
 
 export default function ReminderDetails() {
   const params = useParams();
@@ -16,7 +16,7 @@ export default function ReminderDetails() {
   const thisReminderID = filterThisReminder[0][0];
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const [lists, setLists] = useState([]);
+  const listContext = useContext(MyListsContext);
   const [form, setForm] = useState(filterThisReminder[0][1]);
 
   // Para redireccionar en router
@@ -60,21 +60,8 @@ export default function ReminderDetails() {
     });
   }, [selectedImage]);
 
-  // Obtener los nombres de las listas para mapear para el elemnto select de formulario.
-  useEffect(() => {
-    const cancelOnValue = onValue(listsEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setLists(Object.entries(snapshot.val()));
-      } else {
-        setLists([]);
-      }
-    });
-
-    return cancelOnValue;
-  }, []);
-
   // Obtener listado de nombres de las listas para options in select element
-  const mapeoSelectOption = lists.map((list) => (
+  const mapeoSelectOption = listContext.map((list) => (
     <option key={list[0]} value={list[0]}>
       {list[1].name}
     </option>
@@ -156,6 +143,7 @@ export default function ReminderDetails() {
           id="image-upload"
           name="imageRef"
           type="file"
+          accept="image/*"
           onChange={handleSelectedImage}
         />
       </div>

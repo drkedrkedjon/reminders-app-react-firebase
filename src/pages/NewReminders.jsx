@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { listsEnDB, remindersEnDB } from "../scripts/firebase";
-import { onValue, push } from "firebase/database";
+import { remindersEnDB } from "../scripts/firebase";
+import { push } from "firebase/database";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { MyListsContext } from "../scripts/DataContexts";
 
 export default function NewReminders() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [lists, setLists] = useState([]);
+  const listContext = useContext(MyListsContext);
   const [form, setForm] = useState({
     userID: "",
     listID: "",
@@ -58,25 +59,14 @@ export default function NewReminders() {
     });
   }, [selectedImage]);
 
-  // Obtener los nombres de las listas para mapear para el elemnto select de formulario.
-  useEffect(() => {
-    const cancelOnValue = onValue(listsEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setLists(Object.entries(snapshot.val()));
-      } else {
-        setLists([]);
-      }
-    });
-
-    return cancelOnValue;
-  }, []);
-
   // Obtener listado de nombres de las listas para options in select element
-  const mapeoSelectOption = lists.map((list) => (
+  const mapeoSelectOption = listContext.map((list) => (
     <option key={list[0]} value={list[0]}>
       {list[1].name}
     </option>
   ));
+
+  console.log(form);
 
   return (
     <div className="new-reminder-container">
@@ -104,13 +94,14 @@ export default function NewReminders() {
         />
 
         <div className="form-element-container">
-          <label htmlFor="select-list">Select list</label>
+          <label htmlFor="select-list">Select List</label>
           <select
             id="select-list"
             name="listID"
             value={form.listID}
             onChange={handleForm}
           >
+            <option value="">-- Select List --</option>
             {mapeoSelectOption}
           </select>
         </div>
@@ -149,10 +140,12 @@ export default function NewReminders() {
         </div>
 
         <label htmlFor="image-upload">Image</label>
+        {form.imageURL !== "" && <img src={form.imageURL} alt="" />}
         <input
           id="image-upload"
           name="imageRef"
           type="file"
+          accept="image/*"
           onChange={handleSelectedImage}
         />
       </div>
