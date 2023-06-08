@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
-import { MyListsContext, MyRemindersContext } from "../scripts/DataContexts";
+import { MyRemindersContext } from "../scripts/DataContexts";
+import { Link } from "react-router-dom";
 
 export default function EditListInput({ lista, handleNewName, deleteList }) {
   const id = lista[0];
@@ -56,6 +57,9 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
         placeholder="Name your list here..."
       />
       <p className="list-form--num-items">{numItems}</p>
+      <Link to={`/list/${id}`} className="reminder-card-arrow">
+        <img src="/assets/flecha-derecha.png" alt="" />
+      </Link>
     </div>
   );
 }

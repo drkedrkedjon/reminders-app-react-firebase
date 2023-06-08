@@ -197,7 +197,7 @@ button {
 
 .list-form-component {
   display: grid;
-  grid-template-columns: 40px auto 40px;
+  grid-template-columns: 40px auto 40px 40px;
   align-items: center;
   margin-inline: 1rem;
   background-color: var(--fondo-contraste);
