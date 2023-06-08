@@ -1,20 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MyListsContext, MyRemindersContext } from "../scripts/DataContexts";
 
 export default function EditListInput({ lista, handleNewName, deleteList }) {
   const id = lista[0];
   const oldName = lista[1].name;
-  const numItems = lista[1].items ? Object.keys(lista[1].items).length : 0;
 
+  const remindersContext = useContext(MyRemindersContext);
   const [listName, setListName] = useState(oldName);
   const [isDeletingList, setIsDeletingList] = useState(false);
+
+  const numItems = remindersContext.filter((reminder) => {
+    return reminder[1].listID === id;
+  }).length;
 
   function handleListName(e) {
     setListName(e.target.value);
   }
 
-  // Handle cambio de nombre
+  // Handle cambio de nombre de la lista
   useEffect(() => {
     if (oldName === listName) {
       return;
@@ -25,7 +30,7 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
     return () => clearTimeout(timeout);
   }, [listName]);
 
-  //  Handle aplazar o deley delete
+  //  Handle aplazar o deley delete lista
   useEffect(() => {
     if (!isDeletingList) {
       return;
@@ -34,7 +39,7 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
     return () => clearTimeout(cancelTimeout);
   }, [isDeletingList]);
 
-  //  Para poner punto rojo
+  //  Para poner punto rojo en el botton de borrar la lista
   const btnRedCancel = isDeletingList ? "cancel-" : "";
 
   return (
@@ -44,7 +49,12 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
         // Aqui uso punto rojo
         className={`${btnRedCancel}delete-btn`}
       ></button>
-      <input type="text" onChange={handleListName} value={listName} />
+      <input
+        type="text"
+        onChange={handleListName}
+        value={listName}
+        placeholder="Name your list here..."
+      />
       <p className="list-form--num-items">{numItems}</p>
     </div>
   );

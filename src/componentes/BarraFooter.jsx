@@ -5,7 +5,7 @@ import { push } from "firebase/database";
 export default function BarraFooter() {
   function handleNewList() {
     push(listsEnDB, {
-      name: "New List",
+      name: "",
       userID: "",
     });
   }
