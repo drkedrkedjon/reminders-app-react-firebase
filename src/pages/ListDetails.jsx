@@ -15,7 +15,7 @@ export default function ListDetails() {
 
   function handleNewName(id, newName) {
     const updates = {};
-    updates[`/reminders/${id}`] = { title: newName };
+    updates[`/reminders/${id}/title`] = newName;
     return update(refDB(db), updates);
   }
 
