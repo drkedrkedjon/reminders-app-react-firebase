@@ -111,7 +111,7 @@ export default function NewReminders() {
             onClick={handleSaveReminder}
             className="btn-guardar"
           >
-            {!isListSelected.current ? "Is List Selected ?" : "Save"}
+            {!isListSelected.current ? "Is List Selected?" : "Save"}
           </button>
         </div>
 

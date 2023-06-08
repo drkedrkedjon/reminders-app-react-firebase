@@ -65,7 +65,17 @@ export default function ReminderDetails() {
     });
   }, [selectedImage]);
 
-  function handleDeleteImage() {}
+  //  Para borrar imgane en storage
+  function handleDeleteImage() {
+    const fileRef = refST(imagesRef, form.imageName);
+    deleteObject(fileRef).then(
+      setForm((oldData) => ({
+        ...oldData,
+        imageURL: "",
+        imageName: "",
+      }))
+    );
+  }
 
   // Obtener listado de nombres de las listas para options in select element
   const mapeoSelectOption = listContext.map((list) => (
