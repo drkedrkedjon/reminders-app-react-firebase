@@ -472,3 +472,55 @@ button {
   grid-column: -1 /-2;
   height: 30px;
 }
+
+/* ****************************** */
+/* Login Form */
+/* ****************************** */
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-block: 3rem;
+  margin-inline: auto;
+  max-width: 412px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+  padding: 2rem;
+  width: 80%;
+  background-color: var(--fondo-base);
+  border-radius: var(--border-radius);
+}
+.login-container h1 {
+  font-size: 1.5rem;
+}
+.login-form label {
+  font-size: 0.8rem;
+  color: var(--color-acentado);
+  margin-bottom: 0.3rem;
+}
+.login-form input {
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--fondo-contraste);
+  border: none;
+  font: inherit;
+  margin-bottom: 1rem;
+}
+.login-form button {
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--fondo-contraste);
+  border: none;
+  font: inherit;
+  color: var(--fondo-base);
+  background-color: var(--color-orange);
+  font-weight: 700;
+  transition: color ease-in-out 120ms;
+  text-align: center;
+  margin-top: 0.5rem;
+}

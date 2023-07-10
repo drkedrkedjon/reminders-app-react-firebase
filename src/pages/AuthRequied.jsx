@@ -19,6 +19,12 @@ export default function AuthRequied() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  !isLogged && <p>Checking user status...</p>;
+  if (!isLogged)
+    return (
+      <p style={{ width: "412px", margin: "2rem auto" }}>
+        Checking user status...
+      </p>
+    );
+  // !isLogged && <p>Checking user status...</p>;
   return <Outlet />;
 }
