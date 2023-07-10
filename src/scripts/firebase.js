@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref as refDB } from "firebase/database"
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,3 +30,6 @@ export const remindersEnDB = refDB(db, "reminders")
 
 // Inicializar Storage
 export const storage = getStorage(app);
+
+// Inicializar Authenticacion firebase
+export const auth = getAuth(app);

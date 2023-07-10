@@ -154,7 +154,6 @@ input::placeholder {
   max-width: 412px;
   min-height: 100dvh;
   margin: 0 auto;
-  overflow: scroll;
 }
 
 button {
