@@ -23,7 +23,6 @@ function App() {
             <Route path="reminder/:id" element={<ReminderDetails />} />
           </Route>
         </Route>
-
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>

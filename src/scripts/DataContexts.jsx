@@ -5,6 +5,18 @@ import { listsEnDB, remindersEnDB } from "./firebase";
 
 export const MyListsContext = createContext();
 export const MyRemindersContext = createContext();
+export const MyUserUIDContext = createContext();
+
+// Contexto de UID de usuario
+export function UserUID({ children }) {
+  const [userUID, setUserUID] = useState("");
+
+  return (
+    <MyUserUIDContext.Provider value={{ userUID, setUserUID }}>
+      {children}
+    </MyUserUIDContext.Provider>
+  );
+}
 
 // Contexto de Listas
 export function ListsContext({ children }) {
