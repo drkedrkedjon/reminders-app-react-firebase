@@ -2,9 +2,11 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../scripts/firebase";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Ajustes() {
   console.log(window.location.pathname);
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
   function handleLogOut() {
@@ -13,7 +15,7 @@ export default function Ajustes() {
         navigate("/login");
       })
       .catch((error) => {
-        console.log(error);
+        setErrorMsg(error.message);
       });
   }
 
@@ -23,6 +25,7 @@ export default function Ajustes() {
       <button onClick={handleLogOut} className="logout-btn">
         Logout
       </button>
+      {errorMsg && <p className="error">{errorMsg}</p>}
     </div>
   );
 }
