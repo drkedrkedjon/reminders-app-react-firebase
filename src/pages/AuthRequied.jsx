@@ -11,6 +11,7 @@ export default function AuthRequied() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLogged(true);
+        console.log(user.uid);
       } else {
         setIsLogged(false);
         navigate("/login");
