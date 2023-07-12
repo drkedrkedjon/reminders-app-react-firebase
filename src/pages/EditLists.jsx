@@ -4,17 +4,21 @@ import { ref, remove, update } from "firebase/database";
 import { db } from "../scripts/firebase";
 import { useContext } from "react";
 import { MyListsContext } from "../scripts/DataContexts";
+import { MyUserUIDContext } from "../scripts/DataContexts";
 
 export default function EditLists() {
   const lists = useContext(MyListsContext);
+  const { userUID } = useContext(MyUserUIDContext);
 
   function handleNewName(id, newName) {
     const updates = {};
     updates[`/listas/${id}/name`] = newName;
+    // updates[`/listas/${userUID}/${id}/name`] = newName;
     return update(ref(db), updates);
   }
 
   function deleteList(id) {
+    // remove(ref(db, `/listas/${userUID}/${id}`));
     remove(ref(db, `/listas/${id}`));
   }
 

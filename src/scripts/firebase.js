@@ -23,6 +23,8 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database
 export const db = getDatabase(app)
+
+
 // Referencias en database
 export const usersEnDB = refDB(db, "users")
 export const listsEnDB = refDB(db, "listas")
