@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { onValue } from "firebase/database";
-import { createContext, useEffect, useState } from "react";
-import { listsEnDB, remindersEnDB } from "./firebase";
+import { onValue, ref as refDB } from "firebase/database";
+import { createContext, useEffect, useState, useContext } from "react";
+import { db } from "./firebase";
 
 export const MyListsContext = createContext();
 export const MyRemindersContext = createContext();
@@ -21,15 +21,19 @@ export function UserUID({ children }) {
 // Contexto de Listas
 export function ListsContext({ children }) {
   const [listsState, setListsState] = useState([]);
+  const { userUID } = useContext(MyUserUIDContext);
 
   useEffect(() => {
-    const cancelOnValue = onValue(listsEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setListsState(Object.entries(snapshot.val()));
-      } else {
-        setListsState([]);
+    const cancelOnValue = onValue(
+      refDB(db, `/listas/${userUID}`),
+      function (snapshot) {
+        if (snapshot.val()) {
+          setListsState(Object.entries(snapshot.val()));
+        } else {
+          setListsState([]);
+        }
       }
-    });
+    );
 
     return cancelOnValue;
   }, []);
@@ -44,15 +48,19 @@ export function ListsContext({ children }) {
 //  Contexto de Reminders
 export function RemindersContext({ children }) {
   const [remindersState, setRemindersState] = useState([]);
+  const { userUID } = useContext(MyUserUIDContext);
 
   useEffect(() => {
-    const cancelOnValue = onValue(remindersEnDB, function (snapshot) {
-      if (snapshot.val()) {
-        setRemindersState(Object.entries(snapshot.val()));
-      } else {
-        setRemindersState([]);
+    const cancelOnValue = onValue(
+      refDB(db, `/reminders/${userUID}`),
+      function (snapshot) {
+        if (snapshot.val()) {
+          setRemindersState(Object.entries(snapshot.val()));
+        } else {
+          setRemindersState([]);
+        }
       }
-    });
+    );
     return cancelOnValue;
   }, []);
 

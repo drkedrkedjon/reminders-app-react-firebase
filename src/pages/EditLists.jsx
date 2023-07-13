@@ -12,14 +12,12 @@ export default function EditLists() {
 
   function handleNewName(id, newName) {
     const updates = {};
-    updates[`/listas/${id}/name`] = newName;
-    // updates[`/listas/${userUID}/${id}/name`] = newName;
+    updates[`/listas/${userUID}/${id}/name`] = newName;
     return update(ref(db), updates);
   }
 
   function deleteList(id) {
-    // remove(ref(db, `/listas/${userUID}/${id}`));
-    remove(ref(db, `/listas/${id}`));
+    remove(ref(db, `listas/${userUID}/${id}`));
   }
 
   const mapeo = lists.map((lista) => {

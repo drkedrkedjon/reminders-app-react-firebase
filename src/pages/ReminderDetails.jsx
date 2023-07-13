@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { remindersEnDB } from "../scripts/firebase";
-import { update } from "firebase/database";
+import { db } from "../scripts/firebase";
+import { update, ref as refDB } from "firebase/database";
 import {
   ref as refST,
   uploadBytes,
@@ -10,18 +10,24 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
-import { MyListsContext, MyRemindersContext } from "../scripts/DataContexts";
+import {
+  MyListsContext,
+  MyRemindersContext,
+  MyUserUIDContext,
+} from "../scripts/DataContexts";
 
 export default function ReminderDetails() {
   const params = useParams();
   const allReminders = useContext(MyRemindersContext);
+  const listContext = useContext(MyListsContext);
+  const { userUID } = useContext(MyUserUIDContext);
+
   const filterThisReminder = allReminders.filter(
     (reminder) => reminder[0] === params.id
   );
   const thisReminderID = filterThisReminder[0][0];
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const listContext = useContext(MyListsContext);
   const [form, setForm] = useState(filterThisReminder[0][1]);
 
   // Para redireccionar en router
@@ -45,7 +51,9 @@ export default function ReminderDetails() {
   function handleUpdateReminder() {
     const updates = {};
     updates[thisReminderID] = form;
-    update(remindersEnDB, updates).then(navigate(`/list/${form.listID}`));
+    update(refDB(db, `/reminders/${userUID}`), updates).then(
+      navigate(`/list/${form.listID}`)
+    );
   }
 
   // Al seleccionar imagen, subir la misma en firebase storage
@@ -65,7 +73,7 @@ export default function ReminderDetails() {
     });
   }, [selectedImage]);
 
-  //  Para borrar imgane en storage
+  //  Para borrar imganes en storage
   function handleDeleteImage() {
     const fileRef = refST(imagesRef, form.imageName);
     deleteObject(fileRef).then(

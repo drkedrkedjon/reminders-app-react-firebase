@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useRef, useState } from "react";
 import { imagesRef } from "../scripts/storage";
-import { remindersEnDB } from "../scripts/firebase";
-import { push } from "firebase/database";
+import { push, ref as refDB } from "firebase/database";
 import {
   ref,
   uploadBytes,
@@ -10,11 +9,13 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import { MyListsContext } from "../scripts/DataContexts";
+import { MyListsContext, MyUserUIDContext } from "../scripts/DataContexts";
+import { db } from "../scripts/firebase";
 
 export default function NewReminders() {
   const [selectedImage, setSelectedImage] = useState(null);
   const listContext = useContext(MyListsContext);
+  const { userUID } = useContext(MyUserUIDContext);
   const [form, setForm] = useState({
     userID: "",
     listID: "",
@@ -52,7 +53,9 @@ export default function NewReminders() {
   }
   // Guardar recordatorio en DB
   function handleSaveReminder() {
-    push(remindersEnDB, form).then(navigate(`/list/${form.listID}`));
+    push(refDB(db, `/reminders/${userUID}`), form).then(
+      navigate(`/list/${form.listID}`)
+    );
   }
 
   // Al seleccionar imagen, subir la misma en firebase storage

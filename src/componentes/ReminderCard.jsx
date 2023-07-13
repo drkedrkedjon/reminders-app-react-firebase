@@ -26,7 +26,7 @@ export default function ReminderCard({
     }
     const timeout = setTimeout(() => {
       handleNewName(id, reminderName);
-    }, 2000);
+    }, 500);
     return () => clearTimeout(timeout);
   }, [reminderName]);
 
@@ -35,7 +35,7 @@ export default function ReminderCard({
     if (!isDeletingList) {
       return;
     }
-    const cancelTimeout = setTimeout(() => deleteReminder(id), 3000);
+    const cancelTimeout = setTimeout(() => deleteReminder(id), 2000);
     return () => clearTimeout(cancelTimeout);
   }, [isDeletingList]);
 

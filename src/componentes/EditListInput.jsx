@@ -27,7 +27,7 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
     }
     const timeout = setTimeout(() => {
       handleNewName(id, listName);
-    }, 2000);
+    }, 500);
     return () => clearTimeout(timeout);
   }, [listName]);
 
@@ -36,7 +36,7 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
     if (!isDeletingList) {
       return;
     }
-    const cancelTimeout = setTimeout(() => deleteList(id), 3000);
+    const cancelTimeout = setTimeout(() => deleteList(id), 2000);
     return () => clearTimeout(cancelTimeout);
   }, [isDeletingList]);
 
