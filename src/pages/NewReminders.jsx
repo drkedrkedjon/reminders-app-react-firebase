@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useRef, useState } from "react";
-import { imagesRef } from "../scripts/storage";
+import { imagesRef, storageRef } from "../scripts/storage";
 import { push, ref as refDB } from "firebase/database";
 import {
   ref,
@@ -62,6 +62,8 @@ export default function NewReminders() {
   // Luego obtener su URL y a final meter en el formulario de recordatorio
   useEffect(() => {
     if (!selectedImage) return;
+
+    // const imagesRef = storageRef(`${userUID}/images`);
 
     const fileRef = ref(imagesRef, selectedImage?.name);
 
