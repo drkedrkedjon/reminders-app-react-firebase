@@ -58,7 +58,7 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
       />
       <p className="list-form--num-items">{numItems}</p>
       <Link to={`/list/${id}`} className="reminder-card-arrow">
-        <img src="/assets/flecha-derecha.png" alt="" />
+        <img src="/assets/flecha-derecha.svg" alt="" />
       </Link>
     </div>
   );
