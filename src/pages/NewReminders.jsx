@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useRef, useState } from "react";
-import { imagesRef, storageRef } from "../scripts/storage";
+import { storageRef } from "../scripts/storage";
 import { push, ref as refDB } from "firebase/database";
 import {
-  ref,
+  ref as refST,
   uploadBytes,
   getDownloadURL,
   deleteObject,
@@ -62,10 +63,9 @@ export default function NewReminders() {
   // Luego obtener su URL y a final meter en el formulario de recordatorio
   useEffect(() => {
     if (!selectedImage) return;
+    const imagesRef = refST(storageRef, `/${userUID}`);
 
-    // const imagesRef = storageRef(`${userUID}/images`);
-
-    const fileRef = ref(imagesRef, selectedImage?.name);
+    const fileRef = refST(imagesRef, selectedImage?.name);
 
     uploadBytes(fileRef, selectedImage).then(() => {
       getDownloadURL(fileRef).then((url) => {
@@ -80,7 +80,9 @@ export default function NewReminders() {
 
   //  Para borrar imgane en storage
   function handleDeleteImage() {
-    const fileRef = ref(imagesRef, form.imageName);
+    const imagesRef = refST(storageRef, `/${userUID}`);
+
+    const fileRef = refST(imagesRef, form.imageName);
     deleteObject(fileRef).then(
       setForm((oldData) => ({
         ...oldData,

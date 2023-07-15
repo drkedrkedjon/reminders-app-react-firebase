@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
-import { imagesRef } from "../scripts/storage";
+import { storageRef } from "../scripts/storage";
 import { db } from "../scripts/firebase";
 import { update, ref as refDB } from "firebase/database";
 import {
@@ -60,6 +60,7 @@ export default function ReminderDetails() {
   // Luego obtener su URL y a final meter en el formulario de recordatorio
   useEffect(() => {
     if (!selectedImage) return;
+    const imagesRef = refST(storageRef, `/${userUID}`);
 
     const fileRef = refST(imagesRef, selectedImage?.name);
 
@@ -68,13 +69,17 @@ export default function ReminderDetails() {
         setForm((oldData) => ({
           ...oldData,
           imageURL: url,
+          imageName: selectedImage?.name,
         }));
       });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedImage]);
 
-  //  Para borrar imganes en storage
+  //  Para borrar imgane en storage
   function handleDeleteImage() {
+    const imagesRef = refST(storageRef, `/${userUID}`);
+
     const fileRef = refST(imagesRef, form.imageName);
     deleteObject(fileRef).then(
       setForm((oldData) => ({
