@@ -3,6 +3,8 @@ import ReminderCard from "../componentes/ReminderCard";
 import { useContext } from "react";
 import { MyRemindersContext, MyUserUIDContext } from "../scripts/DataContexts";
 import { ref as refDB, remove, update } from "firebase/database";
+import { ref as refST, deleteObject } from "firebase/storage";
+import { storageRef } from "../scripts/storage";
 import { db } from "../scripts/firebase";
 
 export default function ListDetails() {
@@ -20,8 +22,18 @@ export default function ListDetails() {
     return update(refDB(db), updates);
   }
 
-  function deleteReminder(id) {
-    remove(refDB(db, `/reminders/${userUID}/${id}`));
+  //  Para borrar imagan en storage y recordatorio tambien en database
+  function deleteReminder(id, imageName) {
+    console.log(imageName);
+    if (imageName === "") {
+      remove(refDB(db, `/reminders/${userUID}/${id}`));
+    } else {
+      const imagesRef = refST(storageRef, `/${userUID}`);
+      const fileRef = refST(imagesRef, imageName);
+      deleteObject(fileRef).then(
+        remove(refDB(db, `/reminders/${userUID}/${id}`))
+      );
+    }
   }
 
   const mapeo = filterThisListReminders.map((reminder) => (

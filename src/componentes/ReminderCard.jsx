@@ -10,7 +10,7 @@ export default function ReminderCard({
   deleteReminder,
 }) {
   const oldTitle = reminder.title;
-  // console.log(reminder);
+  // console.log(reminder.imageName);
 
   const [reminderName, setReminderName] = useState(oldTitle);
   const [isDeletingList, setIsDeletingList] = useState(false);
@@ -35,7 +35,10 @@ export default function ReminderCard({
     if (!isDeletingList) {
       return;
     }
-    const cancelTimeout = setTimeout(() => deleteReminder(id), 2000);
+    const cancelTimeout = setTimeout(
+      () => deleteReminder(id, reminder?.imageName),
+      2000
+    );
     return () => clearTimeout(cancelTimeout);
   }, [isDeletingList]);
 
