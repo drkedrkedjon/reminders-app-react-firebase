@@ -489,7 +489,6 @@ button {
 .login-form {
   display: flex;
   flex-direction: column;
-  /* gap: 1rem; */
   padding: 2rem;
   width: 80%;
   background-color: var(--fondo-base);
@@ -497,6 +496,7 @@ button {
 }
 .login-container h1 {
   font-size: 1.5rem;
+  font-weight: 600;
 }
 .login-form label {
   font-size: 0.8rem;
@@ -523,9 +523,29 @@ button {
   transition: color ease-in-out 120ms;
   text-align: center;
   margin-top: 0.5rem;
+  transition: scale ease-in-out 120ms;
+}
+.login-form button:hover {
+  scale: 1.02;
+}
+.login-form button:disabled {
+  background-color: var(--fondo-base);
+  color: var(--fondo-contraste);
+  font-size: 0.8rem;
+  border: 1px solid var(--fondo-contraste);
+  cursor: not-allowed;
 }
 .error {
   color: var(--color-red);
   font-size: 0.8rem;
   margin-top: 0.7rem;
+}
+.register-link {
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  color: var(--color);
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  cursor: pointer;
 }
