@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { onValue, ref as refDB } from "firebase/database";
-import { createContext, useEffect, useState, useContext } from "react";
+import { createContext, useEffect, useState, useContext, useMemo } from "react";
 import { db } from "./firebase";
 
 export const MyListsContext = createContext();
@@ -11,8 +11,11 @@ export const MyUserUIDContext = createContext();
 export function UserUID({ children }) {
   const [userUID, setUserUID] = useState("");
 
+  // Usar useMemo hook here
+  const value = useMemo(() => ({ userUID, setUserUID }), [userUID]);
+
   return (
-    <MyUserUIDContext.Provider value={{ userUID, setUserUID }}>
+    <MyUserUIDContext.Provider value={value}>
       {children}
     </MyUserUIDContext.Provider>
   );
