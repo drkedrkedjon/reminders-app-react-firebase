@@ -2,6 +2,7 @@ import HomeListCard from "../componentes/HomeListCard";
 import TableroCard from "../componentes/TableroCard";
 import { useContext } from "react";
 import { MyListsContext } from "../scripts/DataContexts";
+import { Flag, BookOpen, Watch, Calendar } from "react-feather";
 
 export default function Home() {
   const lists = useContext(MyListsContext);
@@ -12,40 +13,36 @@ export default function Home() {
 
   return (
     <main className="home-container">
-      <div className="tablero">
+      <section className="tablero">
         <TableroCard
-          src="/assets/reloj.png"
-          alt="Clock"
-          num="3"
-          text="Sasa"
-          date={true}
-          color="var(--color-red)"
+          imagen={<BookOpen color="var(--color-green)" />}
+          num="28"
+          text="All Reminders"
+          date={false}
+          color="var(--color)"
         />
         <TableroCard
-          src="/assets/bandera.png"
-          alt="Flag"
+          imagen={<Flag color="var(--color-red)" />}
           num="7"
           text="Flaged"
           date={false}
           color="var(--color)"
         />
         <TableroCard
-          src="/assets/easy.png"
-          alt="Woman working on laptop"
+          imagen={<Watch color="var(--color-orange)" />}
+          num="3"
+          text=""
+          date={true}
+          color="var(--color)"
+        />
+        <TableroCard
+          imagen={<Calendar color="var(--color-acentado)" />}
           num="14"
           text="Next 3 days"
           date={false}
-          color="var(--color-orange)"
+          color="var(--color)"
         />
-        <TableroCard
-          src="/assets/relax.png"
-          alt="Person on sunbed"
-          num="28"
-          text="Next 7 days"
-          date={false}
-          color="var(--color-green)"
-        />
-      </div>
+      </section>
 
       <section className="home-list-container">
         <h2 className="list-title">My Lists</h2>

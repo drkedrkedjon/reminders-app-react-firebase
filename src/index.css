@@ -420,9 +420,9 @@ button {
   justify-content: space-between;
   align-items: center;
 }
-.tablero-card--img {
+/* .tablero-card--img {
   height: 1.7rem;
-}
+} */
 .tablero-card--num {
   font-size: 1.7rem;
   font-weight: 700;
