@@ -11,7 +11,7 @@ export const MyUserUIDContext = createContext();
 export function UserUID({ children }) {
   const [userUID, setUserUID] = useState("");
 
-  // Usar useMemo hook here
+  // Usar useMemo hook here becouse we are passing an object as value
   const value = useMemo(() => ({ userUID, setUserUID }), [userUID]);
 
   return (
@@ -39,7 +39,7 @@ export function ListsContext({ children }) {
     );
 
     return cancelOnValue;
-  }, []);
+  }, [userUID]);
 
   return (
     <MyListsContext.Provider value={listsState}>
@@ -65,7 +65,7 @@ export function RemindersContext({ children }) {
       }
     );
     return cancelOnValue;
-  }, []);
+  }, [userUID]);
 
   return (
     <MyRemindersContext.Provider value={remindersState}>

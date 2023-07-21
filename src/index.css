@@ -196,7 +196,7 @@ button {
 
 .list-form-component {
   display: grid;
-  grid-template-columns: 40px auto 40px 40px;
+  grid-template-columns: 40px auto 40px 30px;
   align-items: center;
   margin-inline: 1rem;
   background-color: var(--fondo-contraste);
@@ -217,6 +217,11 @@ button {
 .list-form--num-items {
   justify-self: end;
   font-size: 1.3rem;
+}
+/* Este icon se usa en list details and reminder too */
+.icono-flecha {
+  justify-self: end;
+  grid-column: -1 /-2;
 }
 
 /* ****************************** */
@@ -457,7 +462,7 @@ button {
 /* ****************************** */
 .reminder-card-container {
   display: grid;
-  grid-template-columns: 40px auto 40px 40px;
+  grid-template-columns: 40px auto 30px 30px;
   align-items: center;
   background-color: var(--fondo-contraste);
   padding: 1rem;
@@ -466,11 +471,6 @@ button {
 .reminder-card-flaged {
   justify-self: end;
   grid-column: -2 / -3;
-}
-.reminder-card-arrow {
-  justify-self: end;
-  grid-column: -1 /-2;
-  height: 30px;
 }
 
 /* ****************************** */

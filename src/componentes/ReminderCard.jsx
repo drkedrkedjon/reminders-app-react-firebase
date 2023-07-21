@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ArrowRight, Flag } from "react-feather";
 
 /* eslint-disable react/prop-types */
 export default function ReminderCard({
@@ -59,14 +60,10 @@ export default function ReminderCard({
         onChange={handleReminderName}
       />
       {reminder.flaged && (
-        <img
-          className="reminder-card-flaged"
-          src="/assets/bandera.png"
-          alt=""
-        />
+        <Flag className="reminder-card-flaged" color={"var(--color-red)"} />
       )}
-      <Link to={`/reminder/${id}`} className="reminder-card-arrow">
-        <img src="/assets/flecha-derecha.svg" alt="" />
+      <Link to={`/reminder/${id}`} className="icono-flecha">
+        <ArrowRight color={"var(--color-acentado)"} />
       </Link>
     </div>
   );

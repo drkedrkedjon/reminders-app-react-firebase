@@ -3,6 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { MyRemindersContext } from "../scripts/DataContexts";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "react-feather";
 
 export default function EditListInput({ lista, handleNewName, deleteList }) {
   const id = lista[0];
@@ -57,8 +58,8 @@ export default function EditListInput({ lista, handleNewName, deleteList }) {
         placeholder="Name your list here..."
       />
       <p className="list-form--num-items">{numItems}</p>
-      <Link to={`/list/${id}`} className="reminder-card-arrow">
-        <img src="/assets/flecha-derecha.svg" alt="" />
+      <Link to={`/list/${id}`} className="icono-flecha">
+        <ArrowRight color={"var(--color-acentado)"} />
       </Link>
     </div>
   );
