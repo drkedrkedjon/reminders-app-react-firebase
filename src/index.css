@@ -176,6 +176,9 @@ button {
   max-width: 412px;
   background-color: var(--fondo-contraste);
 }
+.header-container:first-child {
+  justify-self: end;
+}
 
 /* ****************************** */
 /* Edit Lists Component */

@@ -1,22 +1,96 @@
+import { useState } from "react";
 import HomeListCard from "../componentes/HomeListCard";
 import TableroCard from "../componentes/TableroCard";
+import ReminderCard from "../componentes/ReminderCard";
 import { useContext } from "react";
-import { MyListsContext } from "../scripts/DataContexts";
+import {
+  MyListsContext,
+  MyRemindersContext,
+  MyUserUIDContext,
+} from "../scripts/DataContexts";
 import { Flag, BookOpen, Watch, Calendar } from "react-feather";
+import { ref as refDB, remove, update } from "firebase/database";
+import { ref as refST, deleteObject } from "firebase/storage";
+import { storageRef } from "../scripts/storage";
+import { db } from "../scripts/firebase";
 
 export default function Home() {
   const lists = useContext(MyListsContext);
+  const reminders = useContext(MyRemindersContext);
+  const { userUID } = useContext(MyUserUIDContext);
+  // lists, reminders, flagged, today, next3days
+  const [homeType, setHomeType] = useState("lists");
 
-  const mapeo = lists.map((lista) => {
+  // Cambiar nombre de recordatorio
+  function handleNewName(id, newName) {
+    const updates = {};
+    updates[`/reminders/${userUID}/${id}/title`] = newName;
+    return update(refDB(db), updates);
+  }
+  //  Para borrar primero imagan en storage y luego tambien recordatorio en database
+  function deleteReminder(id, imageName) {
+    console.log(imageName);
+    if (imageName === "") {
+      remove(refDB(db, `/reminders/${userUID}/${id}`));
+    } else {
+      const imagesRef = refST(storageRef, `/${userUID}`);
+      const fileRef = refST(imagesRef, imageName);
+      deleteObject(fileRef).then(
+        remove(refDB(db, `/reminders/${userUID}/${id}`))
+      );
+    }
+  }
+
+  // Por defecto se muestran todas las listas
+  const myLists = lists.map((lista) => {
     return <HomeListCard key={lista[0]} lista={lista} />;
   });
+  // Para mostrar todos los recordatorios
+  const allReminders = reminders.map((reminder) => {
+    return (
+      <ReminderCard
+        key={reminder[0]}
+        reminder={reminder[1]}
+        id={reminder[0]}
+        handleNewName={handleNewName}
+        deleteReminder={deleteReminder}
+      />
+    );
+  });
+
+  function handleFilter() {
+    const filteredReminders = reminders.filter((reminder) => {
+      if (homeType === "flagged") {
+        return reminder[1].flaged === true;
+      }
+      if (homeType === "today") {
+        return reminder[1].date === "today";
+      }
+      if (homeType === "next3days") {
+        return reminder[1].date === "next3days";
+      }
+      return null;
+    });
+    console.log(filteredReminders);
+    return filteredReminders.map((reminder) => {
+      return (
+        <ReminderCard
+          key={reminder[0]}
+          reminder={reminder[1]}
+          id={reminder[0]}
+          handleNewName={handleNewName}
+          deleteReminder={deleteReminder}
+        />
+      );
+    });
+  }
 
   return (
     <main className="home-container">
       <section className="tablero">
         <TableroCard
           imagen={<BookOpen color="var(--color-green)" />}
-          num="28"
+          num={reminders.length}
           text="All Reminders"
           date={false}
           color="var(--color)"
@@ -24,7 +98,7 @@ export default function Home() {
         <TableroCard
           imagen={<Flag color="var(--color-red)" />}
           num="7"
-          text="Flaged"
+          text="Flagged"
           date={false}
           color="var(--color)"
         />
@@ -46,7 +120,11 @@ export default function Home() {
 
       <section className="home-list-container">
         <h2 className="list-title">My Lists</h2>
-        {mapeo}
+        {homeType === "lists" && myLists}
+        {homeType === "reminders" && allReminders}
+        {homeType === "flagged" && handleFilter()}
+        {homeType === "today" && handleFilter()}
+        {homeType === "next3days" && handleFilter()}
       </section>
     </main>
   );
