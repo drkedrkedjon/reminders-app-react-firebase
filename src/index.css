@@ -417,6 +417,7 @@ button {
   background-color: var(--fondo-contraste);
   padding: 0.5rem;
   border-radius: var(--border-radius);
+  cursor: pointer;
 }
 .tablero-card--firstrow {
   display: flex;

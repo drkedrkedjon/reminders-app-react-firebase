@@ -6,6 +6,19 @@ import { db } from "./firebase";
 export const MyListsContext = createContext();
 export const MyRemindersContext = createContext();
 export const MyUserUIDContext = createContext();
+export const HomeDisplayTypeContext = createContext();
+
+//  Contexto de Home display type
+export function MyHomeDisplayTypeContext({ children }) {
+  // lists, reminders, flagged, today, next3days
+  const [homeType, setHomeType] = useState("lists");
+  const value = useMemo(() => ({ homeType, setHomeType }), [homeType]);
+  return (
+    <HomeDisplayTypeContext.Provider value={value}>
+      {children}
+    </HomeDisplayTypeContext.Provider>
+  );
+}
 
 // Contexto de UID de usuario
 export function UserUID({ children }) {

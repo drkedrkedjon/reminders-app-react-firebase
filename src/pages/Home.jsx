@@ -1,4 +1,3 @@
-import { useState } from "react";
 import HomeListCard from "../componentes/HomeListCard";
 import TableroCard from "../componentes/TableroCard";
 import ReminderCard from "../componentes/ReminderCard";
@@ -7,6 +6,7 @@ import {
   MyListsContext,
   MyRemindersContext,
   MyUserUIDContext,
+  HomeDisplayTypeContext,
 } from "../scripts/DataContexts";
 import { Flag, BookOpen, Watch, Calendar } from "react-feather";
 import { ref as refDB, remove, update } from "firebase/database";
@@ -18,8 +18,7 @@ export default function Home() {
   const lists = useContext(MyListsContext);
   const reminders = useContext(MyRemindersContext);
   const { userUID } = useContext(MyUserUIDContext);
-  // lists, reminders, flagged, today, next3days
-  const [homeType, setHomeType] = useState("next3days");
+  const { homeType, setHomeType } = useContext(HomeDisplayTypeContext);
 
   // Cambiar nombre de recordatorio
   function handleNewName(id, newName) {
@@ -64,24 +63,34 @@ export default function Home() {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays <= 3;
   }
+  // Filter Flagged
+  const flagged = reminders.filter((reminder) => {
+    return reminder[1].flaged === true;
+  });
+  // Filter Today
+  const today = reminders.filter((reminder) => {
+    const dbDate = new Date(reminder[1].date).toLocaleDateString();
+    const todayDate = new Date().toLocaleDateString();
+    return dbDate === todayDate;
+  });
+  // Filter Next 3 days
+  const next3days = reminders.filter((reminder) => {
+    const dbDate = new Date(reminder[1].date);
+    const todayDate = new Date();
+    return compareDates(todayDate, dbDate);
+  });
 
   function handleFilter() {
-    const filteredReminders = reminders.filter((reminder) => {
-      if (homeType === "flagged") {
-        return reminder[1].flaged === true;
-      }
-      if (homeType === "today") {
-        const dbDate = new Date(reminder[1].date).toLocaleDateString();
-        const todayDate = new Date().toLocaleDateString();
-        return dbDate === todayDate;
-      }
-      if (homeType === "next3days") {
-        const dbDate = new Date(reminder[1].date);
-        const todayDate = new Date();
-        return compareDates(todayDate, dbDate);
-      }
-      return null;
-    });
+    let filteredReminders = [];
+    if (homeType === "flagged") {
+      filteredReminders = flagged;
+    }
+    if (homeType === "today") {
+      filteredReminders = today;
+    }
+    if (homeType === "next3days") {
+      filteredReminders = next3days;
+    }
 
     return filteredReminders.map((reminder) => {
       return (
@@ -105,27 +114,31 @@ export default function Home() {
           text="All Reminders"
           date={false}
           color="var(--color)"
+          onClick={() => setHomeType("reminders")}
         />
         <TableroCard
           imagen={<Flag color="var(--color-red)" />}
-          num="7"
+          num={flagged.length}
           text="Flagged"
           date={false}
           color="var(--color)"
+          onClick={() => setHomeType("flagged")}
         />
         <TableroCard
           imagen={<Watch color="var(--color-orange)" />}
-          num="3"
+          num={today.length}
           text=""
           date={true}
           color="var(--color)"
+          onClick={() => setHomeType("today")}
         />
         <TableroCard
           imagen={<Calendar color="var(--color-acentado)" />}
-          num="14"
+          num={next3days.length}
           text="Next 3 days"
           date={false}
           color="var(--color)"
+          onClick={() => setHomeType("next3days")}
         />
       </section>
 
@@ -134,8 +147,6 @@ export default function Home() {
         {homeType === "lists" && myLists}
         {homeType === "reminders" && allReminders}
         {(homeType === "flagged" || "today" || "next3days") && handleFilter()}
-        {/* {homeType === "today" && handleFilter()}
-        {homeType === "next3days" && handleFilter()} */}
       </section>
     </main>
   );
