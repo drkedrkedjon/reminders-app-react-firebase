@@ -19,7 +19,7 @@ export default function Home() {
   const reminders = useContext(MyRemindersContext);
   const { userUID } = useContext(MyUserUIDContext);
   // lists, reminders, flagged, today, next3days
-  const [homeType, setHomeType] = useState("lists");
+  const [homeType, setHomeType] = useState("next3days");
 
   // Cambiar nombre de recordatorio
   function handleNewName(id, newName) {
@@ -29,7 +29,6 @@ export default function Home() {
   }
   //  Para borrar primero imagan en storage y luego tambien recordatorio en database
   function deleteReminder(id, imageName) {
-    console.log(imageName);
     if (imageName === "") {
       remove(refDB(db, `/reminders/${userUID}/${id}`));
     } else {
@@ -40,7 +39,6 @@ export default function Home() {
       );
     }
   }
-
   // Por defecto se muestran todas las listas
   const myLists = lists.map((lista) => {
     return <HomeListCard key={lista[0]} lista={lista} />;
@@ -57,6 +55,15 @@ export default function Home() {
       />
     );
   });
+  // Compare two dates to see if they are  equal or less then three days beetwen them
+  function compareDates(date1, date2) {
+    const date1Obj = new Date(date1);
+    const date2Obj = new Date(date2);
+    if (date1Obj > date2Obj) return false;
+    const diffTime = Math.abs(date2Obj - date1Obj);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= 3;
+  }
 
   function handleFilter() {
     const filteredReminders = reminders.filter((reminder) => {
@@ -64,14 +71,18 @@ export default function Home() {
         return reminder[1].flaged === true;
       }
       if (homeType === "today") {
-        return reminder[1].date === "today";
+        const dbDate = new Date(reminder[1].date).toLocaleDateString();
+        const todayDate = new Date().toLocaleDateString();
+        return dbDate === todayDate;
       }
       if (homeType === "next3days") {
-        return reminder[1].date === "next3days";
+        const dbDate = new Date(reminder[1].date);
+        const todayDate = new Date();
+        return compareDates(todayDate, dbDate);
       }
       return null;
     });
-    console.log(filteredReminders);
+
     return filteredReminders.map((reminder) => {
       return (
         <ReminderCard
@@ -122,9 +133,9 @@ export default function Home() {
         <h2 className="list-title">My Lists</h2>
         {homeType === "lists" && myLists}
         {homeType === "reminders" && allReminders}
-        {homeType === "flagged" && handleFilter()}
-        {homeType === "today" && handleFilter()}
-        {homeType === "next3days" && handleFilter()}
+        {(homeType === "flagged" || "today" || "next3days") && handleFilter()}
+        {/* {homeType === "today" && handleFilter()}
+        {homeType === "next3days" && handleFilter()} */}
       </section>
     </main>
   );
