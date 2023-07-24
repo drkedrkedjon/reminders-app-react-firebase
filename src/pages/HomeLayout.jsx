@@ -5,6 +5,7 @@ import {
   ListsContext,
   RemindersContext,
   MyHomeDisplayTypeContext,
+  MyColorUI,
 } from "../scripts/DataContexts";
 
 export default function HomeLayout() {
@@ -13,9 +14,11 @@ export default function HomeLayout() {
       <ListsContext>
         <RemindersContext>
           <MyHomeDisplayTypeContext>
-            <BarraHeader />
-            <Outlet />
-            <BarraFooter />
+            <MyColorUI>
+              <BarraHeader />
+              <Outlet />
+              <BarraFooter />
+            </MyColorUI>
           </MyHomeDisplayTypeContext>
         </RemindersContext>
       </ListsContext>

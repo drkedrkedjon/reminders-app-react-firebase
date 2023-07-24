@@ -242,6 +242,11 @@ button {
 .logout-btn {
   color: var(--color-red);
 }
+.logout-span {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
 
 /* ****************************** */
 /* Barra FOOTER Componente*/
@@ -266,8 +271,8 @@ button {
 /* ****************************** */
 
 .new-reminder-container {
-  margin-block: 4rem;
-  padding-inline: 1rem;
+  margin-block: 2rem;
+  padding: 2rem 1rem;
 }
 .new-reminder-lista {
   display: flex;

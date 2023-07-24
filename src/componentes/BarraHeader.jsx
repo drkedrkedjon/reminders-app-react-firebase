@@ -5,6 +5,7 @@ import { useContext } from "react";
 
 export default function BarraHeader() {
   const { setHomeType } = useContext(HomeDisplayTypeContext);
+
   return (
     <header className="header-container">
       <Link to={"/edit-lists"}>

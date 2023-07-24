@@ -7,6 +7,19 @@ export const MyListsContext = createContext();
 export const MyRemindersContext = createContext();
 export const MyUserUIDContext = createContext();
 export const HomeDisplayTypeContext = createContext();
+export const MyColorUIContext = createContext();
+
+// Contexto de Dark Mode
+export function MyColorUI({ children }) {
+  const [colorUI, setColorUI] = useState("dark");
+
+  const value = useMemo(() => ({ colorUI, setColorUI }), [colorUI]);
+  return (
+    <MyColorUIContext.Provider value={value}>
+      {children}
+    </MyColorUIContext.Provider>
+  );
+}
 
 //  Contexto de Home display type
 export function MyHomeDisplayTypeContext({ children }) {

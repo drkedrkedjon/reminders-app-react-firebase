@@ -2,11 +2,13 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../scripts/firebase";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { LogOut } from "react-feather";
+import { MyColorUIContext } from "../scripts/DataContexts";
 
 export default function Ajustes() {
-  console.log(window.location.pathname);
   const [errorMsg, setErrorMsg] = useState("");
+  const { colorUI, setColorUI } = useContext(MyColorUIContext);
   const navigate = useNavigate();
 
   function handleLogOut() {
@@ -19,11 +21,21 @@ export default function Ajustes() {
       });
   }
 
+  function handleColorUI() {
+    if (colorUI === "dark") {
+      setColorUI("light");
+    } else {
+      setColorUI("dark");
+    }
+  }
+
   return (
     <div className="ajustes-container">
-      <button>Light Mode</button>
+      <button onClick={handleColorUI}>Light Mode</button>
       <button onClick={handleLogOut} className="logout-btn">
-        Logout
+        <span className="logout-span">
+          Logout <LogOut size={16} />
+        </span>
       </button>
       {errorMsg && <p className="error">{errorMsg}</p>}
     </div>
