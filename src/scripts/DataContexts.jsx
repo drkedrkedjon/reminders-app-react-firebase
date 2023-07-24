@@ -13,6 +13,24 @@ export const MyColorUIContext = createContext();
 export function MyColorUI({ children }) {
   const [colorUI, setColorUI] = useState("dark");
 
+  // --color: #ffffff;
+  // --fondo-base: #222;
+  // --fondo-contraste: #4e4e4e;
+
+  // useEffect to change value of CSS variable in :root
+  useEffect(() => {
+    const root = document.querySelector(":root");
+    root.style.setProperty("--color", colorUI === "dark" ? "#ffffff" : "#222");
+    root.style.setProperty(
+      "--fondo-base",
+      colorUI === "dark" ? "#222" : "#ffffff"
+    );
+    root.style.setProperty(
+      "--fondo-contraste",
+      colorUI === "dark" ? "#4e4e4e" : "#bababa"
+    );
+  }, [colorUI]);
+
   const value = useMemo(() => ({ colorUI, setColorUI }), [colorUI]);
   return (
     <MyColorUIContext.Provider value={value}>
