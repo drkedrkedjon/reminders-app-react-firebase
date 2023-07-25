@@ -11,11 +11,9 @@ export const MyColorUIContext = createContext();
 
 // Contexto de Dark Mode
 export function MyColorUI({ children }) {
-  const [colorUI, setColorUI] = useState("dark");
-
-  // --color: #ffffff;
-  // --fondo-base: #222;
-  // --fondo-contraste: #4e4e4e;
+  const [colorUI, setColorUI] = useState(
+    localStorage.getItem("colorUI") || "dark"
+  );
 
   // useEffect to change value of CSS variable in :root
   useEffect(() => {
@@ -23,12 +21,21 @@ export function MyColorUI({ children }) {
     root.style.setProperty("--color", colorUI === "dark" ? "#ffffff" : "#222");
     root.style.setProperty(
       "--fondo-base",
-      colorUI === "dark" ? "#222" : "#ffffff"
+      colorUI === "dark" ? "#222" : "#bababa"
     );
     root.style.setProperty(
       "--fondo-contraste",
-      colorUI === "dark" ? "#4e4e4e" : "#bababa"
+      colorUI === "dark" ? "#4e4e4e" : "#fff"
     );
+    root.style.setProperty(
+      "--color-acentado",
+      colorUI === "dark" ? "#00ffff" : "#2175DE"
+    );
+    root.style.setProperty(
+      "--color-green",
+      colorUI === "dark" ? "#05ff00" : "#66A15E"
+    );
+    localStorage.setItem("colorUI", colorUI);
   }, [colorUI]);
 
   const value = useMemo(() => ({ colorUI, setColorUI }), [colorUI]);

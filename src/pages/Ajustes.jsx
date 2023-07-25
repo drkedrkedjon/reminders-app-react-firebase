@@ -31,7 +31,9 @@ export default function Ajustes() {
 
   return (
     <div className="ajustes-container">
-      <button onClick={handleColorUI}>Light Mode</button>
+      <button onClick={handleColorUI}>
+        {colorUI === "dark" ? "Light Mode" : "Dark Mode"}
+      </button>
       <button onClick={handleLogOut} className="logout-btn">
         <span className="logout-span">
           Logout <LogOut size={16} />
